@@ -7,9 +7,12 @@ type AccType = {
 };
 
 export const evaluateGuess = (secret: string, guess: string): EvaluateType => {
-	const { bulls, secretRest, guessRest } = [...secret].reduce<AccType>(
+	const _secret = secret.toLowerCase();
+	const _guess = guess.toLowerCase();
+
+	const { bulls, secretRest, guessRest } = [..._secret].reduce<AccType>(
 		(acc, sChar, i) => {
-			const gChar = guess[i];
+			const gChar = _guess[i];
 			if (!gChar) return acc;
 			if (sChar === gChar) {
 				return { ...acc, bulls: acc.bulls + 1 };
