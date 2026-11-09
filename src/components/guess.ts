@@ -37,7 +37,7 @@ export const renderWinMessage = (attempts: number) => {
 	const container = document.getElementById('guess-container');
 	container?.querySelector('.settings--title')?.remove();
 	const inputField = document.getElementById('field-container') as HTMLDivElement;
-	[...(inputField?.children || [])].forEach((item) => item.remove());
+	inputField?.replaceChildren();
 	const title = createElement({ tag: 'h2', className: 'win-title', textContent: `You are Win!!!` });
 	const description = createElement({ tag: 'p', className: 'win-description', textContent: `Score: ${attempts}` });
 	inputField.append(title, description);

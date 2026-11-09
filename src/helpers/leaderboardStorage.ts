@@ -20,6 +20,22 @@ export const getRecords = (base: BaseType, length: LengthType): RecordEntry[] =>
 	}
 };
 
+export const getAllRecords = (): (RecordEntry & { base: BaseType; length: LengthType })[] =>
+	Object.keys(localStorage)
+		.filter((k) => k.startsWith(PREFIX))
+		.flatMap((key) => {
+			const raw = localStorage.getItem(key);
+			if (!raw) return [];
+			try {
+				const records = JSON.parse(raw) as RecordEntry[];
+				const [base, length] = key.replace(PREFIX, '').split(':').map(Number);
+				return records.map((r) => ({ ...r, base: base as BaseType, length: length as LengthType }));
+			} catch {
+				return [];
+			}
+		})
+		.sort((a, b) => a.attempts - b.attempts || a.timeSec - b.timeSec);
+
 const setRecords = (base: BaseType, length: LengthType, data: RecordEntry[]): void => {
 	if (!data?.length) {
 		localStorage.removeItem(key(base, length));
