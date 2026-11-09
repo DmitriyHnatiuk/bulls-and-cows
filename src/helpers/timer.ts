@@ -13,7 +13,7 @@ type TimerCallbacks = {
 	onReset?: () => void;
 };
 
-type TimerAPI = {
+export type TimerAPI = {
 	start: () => void;
 	stop: () => void;
 	reset: () => void;

@@ -155,11 +155,6 @@ html {
 	}
 }
 
-.board_container {
-	text-align: center;
-	margin: 2rem;
-}
-
 .footer {
 	margin-top: auto;
 	display: flex;
@@ -238,4 +233,23 @@ html {
 		cursor: not-allowed;
 		background: #f5f5f5;
 	}
+}
+
+.board-info {
+	text-align: center;
+	overflow: auto;
+
+	.board--title {
+		margin: 2rem;
+	}
+	.board-list {
+		font-size: 1.8rem;
+	}
+}
+
+.win-title,
+.win-description {
+	text-align: center;
+	font-size: 2rem;
+	color: var(--color-text);
 }

@@ -1,8 +1,10 @@
+import { changeBoard } from '../components/board.js';
 import { renderGuess } from '../components/guess.js';
 import { countPossibleSecrets } from '../core/countPossibleSecrets.js';
 import { generateSecret } from '../core/generateSecret.js';
 import type { BaseType, LengthType } from '../type/type.js';
-import { createTimer, formatTime } from './timer.js';
+import { checkGuess } from './checkGuess.js';
+import { createTimer, formatTime, type TimerAPI } from './timer.js';
 
 const switchInput = (childNodes: NodeListOf<ChildNode>) => {
 	[...childNodes].forEach((node) => {
@@ -70,6 +72,16 @@ const startTimer = () => {
 	});
 	return { ...timer };
 };
+
+export const resetSettings = (timer: TimerAPI) => () => {
+	const form = document.getElementById('settings-form') as HTMLElement;
+	if (form) form.style.display = 'flex';
+	changeBoard();
+	const container = document.getElementById('guess-container');
+	if (container) container.remove();
+	timer.reset();
+};
+
 export const onSettingsSubmit = (event: Event) => {
 	event.preventDefault();
 
@@ -85,6 +97,14 @@ export const onSettingsSubmit = (event: Event) => {
 	timer.start();
 
 	renderGuess();
+	changeBoard('History');
+	const resetButton = document.getElementById('reset');
+	const onReset = resetSettings(timer);
+	resetButton?.addEventListener('click', onReset);
 
-	if (!secret) return;
+	const check = document.getElementById('check-button');
+
+	const onCheck = checkGuess(secret, length, base, timer);
+
+	check?.addEventListener('click', onCheck);
 };
