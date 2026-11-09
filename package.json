@@ -1,0 +1,47 @@
+{
+	"name": "bulls-and-cows",
+	"version": "1.0.0",
+	"description": "",
+	"homepage": "https://github.com/DmitriyHnatiuk/bulls-and-cows#readme",
+	"bugs": {
+		"url": "https://github.com/DmitriyHnatiuk/bulls-and-cows/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/DmitriyHnatiuk/bulls-and-cows.git"
+	},
+	"license": "ISC",
+	"author": "",
+	"type": "module",
+	"main": "index.js",
+	"lint-staged": {
+		"*.{js,ts}": [
+			"npx eslint"
+		],
+		"*.{js,css,md,json,html}": [
+			"npx prettier --check"
+		]
+	},
+	"scripts": {
+		"test": "vitest run",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix && npm run format",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"prepare": "husky",
+		"build": "npx esbuild ./index.ts --bundle --format=esm --outfile=index.js"
+	},
+	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"@vitest/coverage-v8": "^5.1.0",
+		"eslint": "^10.14.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.7",
+		"globals": "^17.14.0",
+		"husky": "^8.0.0",
+		"lint-staged": "^17.6.0",
+		"prettier": "^3.9.10",
+		"typescript-eslint": "^8.72.1",
+		"vitest": "^5.1.0"
+	}
+}
