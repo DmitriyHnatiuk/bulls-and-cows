@@ -4,6 +4,7 @@ import { countPossibleSecrets } from '../core/countPossibleSecrets.js';
 import { generateSecret } from '../core/generateSecret.js';
 import type { BaseType, LengthType } from '../type/type.js';
 import { checkGuess } from './checkGuess.js';
+import { enterValidator } from './enterValidator.js';
 import { createTimer, formatTime, type TimerAPI } from './timer.js';
 
 const switchInput = (childNodes: NodeListOf<ChildNode>) => {
@@ -103,8 +104,12 @@ export const onSettingsSubmit = (event: Event) => {
 	resetButton?.addEventListener('click', onReset);
 
 	const check = document.getElementById('check-button');
+	const inputField = document.getElementById('guess-input');
 
 	const onCheck = checkGuess(secret, length, base, timer);
 
+	const onEnterGuess = enterValidator(length, base);
+
+	inputField?.addEventListener('input', onEnterGuess);
 	check?.addEventListener('click', onCheck);
 };
