@@ -28,7 +28,8 @@
 		"lint:fix": "eslint . --fix && npm run format",
 		"format": "prettier --write .",
 		"format:check": "prettier --check .",
-		"prepare": "husky"
+		"prepare": "husky",
+		"build": "npx esbuild ./index.ts --bundle --format=esm --outfile=index.js"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
