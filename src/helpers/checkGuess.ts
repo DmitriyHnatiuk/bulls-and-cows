@@ -3,6 +3,7 @@ import { renderWinMessage } from '../components/guess.js';
 import { evaluateGuess } from '../core/evaluateGuess.js';
 import { isValidGuess } from '../core/isValidGuess.js';
 import type { BaseType, LengthType } from '../type/type.js';
+import { invalidInputMsg } from './helpers.js';
 import { saveRecord } from './leaderboardStorage.js';
 import type { TimerAPI } from './timer.js';
 
@@ -14,8 +15,7 @@ export const checkGuess = (secret: string, length: LengthType, base: BaseType, t
 		const isValid = isValidGuess(input?.value, length, base);
 		if (isValid.valid) {
 			if (data.attempts.has(input.value)) {
-				input.setCustomValidity('The option has already been used');
-				input.reportValidity();
+				invalidInputMsg(input, 'The option has already been used');
 				return;
 			}
 			const result = evaluateGuess(secret, input.value);
@@ -29,8 +29,7 @@ export const checkGuess = (secret: string, length: LengthType, base: BaseType, t
 			data.count += 1;
 			data.attempts.add(input.value);
 		} else {
-			input.setCustomValidity(isValid.error || 'Input not correct');
-			input.reportValidity();
+			invalidInputMsg(input, isValid.error || 'Not correct input');
 		}
 	};
 };
